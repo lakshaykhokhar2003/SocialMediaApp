@@ -11,7 +11,7 @@ const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const loginHandler = async (email: any) => {
+    const loginHandler = async (email: string) => {
         try {
             const res = await axios.get(`https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/user/-Nm7je81ns7AhjF2E0o3/${email}.json`)
             dispatch(authActions.login(res.data))
@@ -36,7 +36,6 @@ const useAuth = () => {
 
     const logoutHandler = () => {
         dispatch(authActions.logout())
-        // localStorage.removeItem('reduxState')
     }
 
     const updateBookmarks = (bookmarks: string[]) => {

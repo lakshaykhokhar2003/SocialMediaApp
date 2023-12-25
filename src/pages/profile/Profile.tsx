@@ -4,6 +4,7 @@ import {UserOutlined, EditTwoTone} from '@ant-design/icons';
 import useReduxHook from "../../hooks/useReduxHook";
 import axios from "axios";
 import useAuth from "../../hooks/authHook";
+import {ValidateErrorEntity} from 'rc-field-form/es/interface';
 
 const Profile: React.FC = () => {
     const {avatar, username, email, encodedEmail, myposts, myComments} = useReduxHook();
@@ -12,27 +13,27 @@ const Profile: React.FC = () => {
     const [form] = Form.useForm();
     const [editMode, setEditMode] = useState<boolean>(false);
     const [profilePhoto, setProfilePhoto] = useState<string>(avatar);
-    const onFinish = async (values: any) => {
+    const onFinish = async () => {
         await form.validateFields();
+        const values = form.getFieldsValue();
         const data = {name: values.name, avatar: values.photoUrl}
         await axios.patch(`https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/user/-Nm7je81ns7AhjF2E0o3/${encodedEmail}.json`, data);
 
         await Promise.all(  // Update all your posts with new name
             myposts.map(async (postId: string) => {
-                const postUpdateRes = await axios.patch(
+                return await axios.patch(
                     `https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/posts/${postId}.json`,
                     data
                 );
-                return postUpdateRes;
             })
         );
         await Promise.all(  // Update all your comments with new name
             myComments.map(async (commentId: string) => {
-                const commentUpdateRes = await axios.patch(
+                return await axios.patch(
                     `https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/${commentId}.json`,
                     data
                 );
-                return commentUpdateRes;
+
             })
         );
         updateProfile(values.name, values.photoUrl)
@@ -42,7 +43,7 @@ const Profile: React.FC = () => {
         }
     };
 
-    const onFinishFailed = (errorInfo: any) => {
+    const onFinishFailed = (errorInfo: ValidateErrorEntity) => {
         console.log('Failed:', errorInfo);
     };
 
@@ -53,8 +54,8 @@ const Profile: React.FC = () => {
         form.submit();
     };
 
-    const renderInput = (fieldName: string, rules?: any[]) => {
-        const disabled = fieldName === 'email'; // Disable email field
+    const renderInput = (fieldName: string, rules?: object[]) => {
+        const disabled = fieldName === 'email';
         return (
             <Form.Item
                 label={fieldName === 'name' ? 'Name' : 'Profile Photo (Image URL)'}

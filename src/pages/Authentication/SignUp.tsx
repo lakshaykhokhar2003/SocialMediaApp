@@ -10,12 +10,10 @@ const SignUp: React.FC = () => {
     const [form] = Form.useForm();
     const {registerHandler} = authHook()
 
-    const handleSubmit = async (values: any) => {
+    const handleSubmit = async () => {
         try {
             await form.validateFields();
-            const username = values.username;
-            const email = values.email;
-            const password = values.password;
+            const {username, email, password} = form.getFieldsValue();
             const encodedEmail = Base64.encode(email)
             const avatar = `https://source.unsplash.com/random/?avatar=${Math.floor(Math.random() * 100)}`;
             const data = {

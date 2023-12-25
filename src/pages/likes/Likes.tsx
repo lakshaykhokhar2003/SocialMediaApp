@@ -5,8 +5,8 @@ import {PostData} from "../PostData";
 import useReduxHook from "../../hooks/useReduxHook";
 
 const Likes: React.FC = () => {
-    const [likedData, setLikedData] = useState<PostData[]>([]);
     const {likedposts} = useReduxHook()
+    const [likedData, setLikedData] = useState<PostData[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const fetchLikedPosts = async (likedposts: string[]): Promise<PostData[]> => {
@@ -20,8 +20,7 @@ const Likes: React.FC = () => {
             };
         });
 
-        const likedPostsData = await Promise.all(requests);
-        return likedPostsData;
+        return await Promise.all(requests);
     };
     useEffect(() => {
         const fetchLikes = async () => {

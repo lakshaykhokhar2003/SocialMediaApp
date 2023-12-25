@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {PostData} from '../../pages/PostData'
 import {Card, Button, Avatar, Typography} from 'antd';
 import {HeartOutlined, HeartFilled, CommentOutlined, BookTwoTone, BookOutlined} from '@ant-design/icons';
@@ -16,7 +16,6 @@ const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
     const {updateBookmarks, updateLikedPosts} = useAuth();
 
     const {date, name, description, likes, photo, post, comments, id} = user;
-
     const [liked, setLiked] = useState<boolean>(likedposts ? likedposts.includes(id) : false);
     const [bookmarked, setBookmarked] = useState<boolean>(bookmarks ? bookmarks.includes(id) : false);
     const [loading, setLoading] = useState<boolean>(true);

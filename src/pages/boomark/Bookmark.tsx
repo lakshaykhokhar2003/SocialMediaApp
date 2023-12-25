@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import axios, { AxiosResponse } from "axios";
-import { PostData } from "../PostData";
+import {useEffect, useState} from "react";
+import axios, {AxiosResponse} from "axios";
+import {PostData} from "../PostData";
 import PostsCard from "../../utils/Card/Card";
 import useReduxHook from "../../hooks/useReduxHook";
 
 const Bookmark: React.FC = () => {
-    const { bookmarks } = useReduxHook();
+    const {bookmarks} = useReduxHook();
+
     const [bookmarksData, setBookmarksData] = useState<PostData[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -20,8 +21,7 @@ const Bookmark: React.FC = () => {
             };
         });
 
-        const bookmarkData = await Promise.all(requests);
-        return bookmarkData;
+        return await Promise.all(requests);
     };
 
     useEffect(() => {
@@ -51,7 +51,7 @@ const Bookmark: React.FC = () => {
         <>
             {bookmarksData.length > 0 ? (
                 bookmarksData.map((user) => (
-                    <PostsCard key={user.id} user={user} />
+                    <PostsCard key={user.id} user={user}/>
                 ))
             ) : (
                 <div>No Bookmarks</div>

@@ -22,8 +22,8 @@ const PostModal: React.FC<{
     const {date, name, description, photo, post, comments} = user;
     const [editedCommentId, setEditedCommentId] = useState<string>("")
     const [commentText, setCommentText] = useState<string>('');
-    const [showCommentTextArea, setShowCommentTextArea] = useState(false);
-    const [editedComment, setEditedComment] = useState("");
+    const [showCommentTextArea, setShowCommentTextArea] = useState<boolean>(false);
+    const [editedComment, setEditedComment] = useState<string>("");
     const handleCommentPost = async () => {
 
         const newComment = {
