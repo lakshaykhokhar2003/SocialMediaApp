@@ -23,6 +23,3 @@ yarn-debug.log*
 yarn-error.log*
 
 #files
-/src/fakedata.js
-/src/fakeuser.js
-/src/key.json
