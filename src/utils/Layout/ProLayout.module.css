@@ -1,0 +1,57 @@
+.sider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 100;
+}
+
+.siderHeight {
+    height: 100vh;
+    z-index: 100;
+
+}
+
+
+span {
+    list-style: none;
+}
+
+
+a {
+    text-decoration: none;
+    /*color: #00081f;*/
+}
+
+.layout {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: red;
+}
+
+.layouts {
+    max-width: 1000px;
+    margin-left: 200px;
+    margin-top: 50px;
+}
+
+.newPost {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    background-color: #1677ff;
+    color: white;
+    cursor: pointer;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*border: 1px solid #00081f;*/
+    /*padding: 10px;*/
+    /*border-radius: 50%;*/
+}
