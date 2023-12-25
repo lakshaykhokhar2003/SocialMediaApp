@@ -17,9 +17,10 @@
     font-size: 2em;
     margin-block-start: 0.67em;
     margin-block-end: 0.67em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
     font-weight: bold;
+    color: #162938;
     /*font-size: 36px;*/
     /*text-align: center;*/
     /*color: white;*/
@@ -40,7 +41,7 @@
     outline: none;
     border-radius: 40px;
     font-size: 16px;
-    color: #fff;
+    /*color: #fff;*/
     padding: 20px 40px 20px 20px;
 }
 
@@ -78,7 +79,7 @@
     text-decoration: underline;
 }
 
-.wrapper button {
+.Button {
     width: 100%;
     height: 45px;
     background: #fff;
@@ -109,7 +110,7 @@
     text-decoration: underline;
 }
 
-button:hover {
+.Button:hover {
     background: transparent;
     color: #fff;
     border: 2px solid #fff;

@@ -1,22 +1,22 @@
 import React from 'react';
-import {Typography, Form, Input, Button} from 'antd';
-import {GoogleOutlined} from '@ant-design/icons';
+import {Form, Input} from 'antd';
 import authHook from "../../hooks/authHook";
 import {Link} from "react-router-dom";
-import useReduxHook from "../../hooks/useReduxHook";
+import styles from './Login.module.css'
+import {Base64} from "js-base64";
 
-const {Title} = Typography;
 
 const SignUp: React.FC = () => {
     const [form] = Form.useForm();
     const {registerHandler} = authHook()
-    const {encodedEmail} = useReduxHook()
+
     const handleSubmit = async (values: any) => {
         try {
             await form.validateFields();
             const username = values.username;
             const email = values.email;
             const password = values.password;
+            const encodedEmail = Base64.encode(email)
             const avatar = `https://source.unsplash.com/random/?avatar=${Math.floor(Math.random() * 100)}`;
             const data = {
                 name: username,
@@ -24,6 +24,7 @@ const SignUp: React.FC = () => {
                 password: password,
                 avatar: avatar,
             }
+            console.log()
             await registerHandler(encodedEmail, data)
             console.log('Logged In');
         } catch (error) {
@@ -32,56 +33,51 @@ const SignUp: React.FC = () => {
     };
 
     return (
-        <>
-            <Title level={1} className='text-center'>Sign Up</Title>
+        <div className={styles.wrapper}>
+            <h1 className={styles.title}>SignUp</h1>
             <Form
                 form={form}
                 className="validated-form"
                 onFinish={handleSubmit}
                 initialValues={{username: '', email: '', password: ''}}
-                labelCol={{span: 8}}
-                wrapperCol={{span: 16}}
             >
                 <Form.Item
-                    label="Username"
                     name="username"
                     rules={[{required: true, message: 'Please input your username!'}]}
+                    className={styles.inputBox}
                 >
-                    <Input/>
+                    <Input className={styles.input} placeholder="Username"/>
                 </Form.Item>
 
                 <Form.Item
-                    label="Email"
                     name="email"
                     rules={[
                         {required: true, message: 'Please input your email!'},
                         {type: 'email', message: 'Invalid email format!'},
                     ]}
+                    className={styles.inputBox}
                 >
-                    <Input placeholder="Email"/>
+                    <Input className={styles.input} placeholder="Email"/>
                 </Form.Item>
 
                 <Form.Item
-                    label="Password"
                     name="password"
                     rules={[{required: true, message: 'Please input your password!'}]}
+                    className={styles.inputBox}
                 >
-                    <Input.Password minLength={6} maxLength={14}/>
+                    <Input.Password minLength={6} maxLength={14} className={styles.input} placeholder="Password"/>
                 </Form.Item>
 
-                <Form.Item wrapperCol={{span: 16, offset: 8}}>
-                    <Button type="primary" htmlType="submit">
-                        Register
-                    </Button>
-                </Form.Item>
+
+                <button onSubmit={handleSubmit} className={styles.Button}>
+                    Register
+                </button>
             </Form>
-            <div className="align-self-center"><Link to='/login'>Already have a account?</Link></div>
-            <div className="d-flex flex-row align-items-center justify-content-center">
-                <GoogleOutlined/>
-                <p className="btnText align-self-auto"><b>Sign in with Google</b></p>
+            <div className={styles.registerLink}><p>Already have a account? <Link to='/login'>Login Here</Link></p>
             </div>
 
-        </>
+
+        </div>
     );
 };
 

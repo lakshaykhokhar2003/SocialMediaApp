@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Login.module.css';
-import {Form, Input, Button} from 'antd';
+import {Form, Input} from 'antd';
 import authHook from "../../hooks/authHook";
 import {Link} from "react-router-dom";
 import axios from "axios";
@@ -37,7 +37,7 @@ const Login: React.FC = () => {
             <h1 className={styles.title}>Login</h1>
             <Form
                 form={form}
-                className="validated-form d-flex flex-column"
+                className="validated-form"
                 onFinish={handleSubmit}
                 initialValues={{username: '', password: ''}}
                 // labelCol={{span: 8}}
@@ -47,7 +47,7 @@ const Login: React.FC = () => {
                 <Form.Item
                     name="email"
                     rules={[
-                        {required: true, message: 'Please enter your email!'},
+                        {required: true, message: 'Please enter your email!',},
                         {type: 'email', message: 'Please enter a valid email address!'},
                     ]}
                     className={styles.inputBox}
@@ -63,17 +63,16 @@ const Login: React.FC = () => {
                         {max: 14, message: 'Password should be less than 14 characters!'}]}
                     className={styles.inputBox}
                 >
-                    <Input.Password minLength={6} maxLength={14} className={styles.input}/>
-                    {/*<FaLock className={styles.icon}/>*/}
+                    <Input.Password minLength={6} maxLength={14} className={styles.input} placeholder="password"/>
                 </Form.Item>
 
-
-                <Button type="primary" htmlType="submit">
+                <button onSubmit={handleSubmit} className={styles.Button}>
                     Login
-                </Button>
+                </button>
 
             </Form>
-            <div className={styles.registerLink}><Link to='/signup'>Don't have a account?</Link></div>
+            <div className={styles.registerLink}><p> Don't have a account? <Link to='/signup'>Register Here</Link></p>
+            </div>
         </div>
     );
 };
