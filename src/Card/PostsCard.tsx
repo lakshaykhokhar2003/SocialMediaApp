@@ -23,6 +23,7 @@ const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
     const ViewModal = () => {
         setModalVisible(true);
     };
+
     const handleLikeToggle = async (id: string) => {
         const isLiked = likedposts && likedposts.includes(id);
         const updatedLikedPosts = isLiked
