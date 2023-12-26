@@ -1,11 +1,12 @@
 import React from 'react';
-import styles from './Login.module.css';
+import styles from './commonStyles.module.css';
 import {Form, Input} from 'antd';
 import authHook from "../../hooks/authHook";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {Base64} from "js-base64";
 import useReduxHook from "../../hooks/useReduxHook";
+import {toast} from "react-toastify";
 
 const Login: React.FC = () => {
     const {usersApi} = useReduxHook()
@@ -21,15 +22,14 @@ const Login: React.FC = () => {
             try {
                 const res = await axios.get(`${usersApi}/${encodedEmail}.json`)
                 if (res.data.password !== password) {
-                    return alert("wrong password");
+                    return toast.error("Wrong credentials", {autoClose: 2000});
                 }
-                console.log("user found")
             } catch (e) {
-                console.log("error user not found")
+                toast.error("Wrong Credentials", {autoClose: 2000});
             }
             await loginHandler(encodedEmail)
         } catch (error) {
-            console.error('Validation failed:', error);
+            toast.error(`Validation Error: ${error}`, {autoClose: 2000});
         }
     };
 

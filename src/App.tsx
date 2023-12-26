@@ -12,6 +12,8 @@ import Posts from "./pages/myposts/Posts";
 import Profile from "./pages/profile/Profile";
 import Likes from "./pages/likes/Likes";
 import NewPost from "./pages/createPost/NewPost";
+import {Flip, ToastContainer} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const routes = [
     {
@@ -67,6 +69,7 @@ function App() {
     return (
         <Provider store={store}>
             <RouterProvider router={router}/>
+            <ToastContainer transition={Flip} position="top-right" limit={2} theme="light"/>
         </Provider>
     );
 }

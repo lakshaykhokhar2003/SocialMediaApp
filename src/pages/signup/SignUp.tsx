@@ -2,7 +2,7 @@ import React from 'react';
 import {Form, Input} from 'antd';
 import authHook from "../../hooks/authHook";
 import {Link} from "react-router-dom";
-import styles from './Login.module.css'
+import styles from './commonStyles.module.css'
 import {Base64} from "js-base64";
 
 
