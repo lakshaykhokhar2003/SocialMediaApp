@@ -206,7 +206,7 @@ const usePostHook = () => {
                 title: 'Comments',
                 dataIndex: 'comments',
                 key: 'comments',
-                render: (record: PostData) => (
+                render: (_: boolean, record: PostData) => (
                     <Button onClick={() => handleExpand(!expandedRowKeys.includes(record.id || ''), record)}>
                         {expandedRowKeys.includes(record.id || '') ? 'Hide Comments' : 'Show Comments'}
                     </Button>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {PostData} from '../utils/PostData'
 import {Card, Button, Avatar, Typography} from 'antd';
 import {HeartOutlined, HeartFilled, CommentOutlined, BookTwoTone, BookOutlined} from '@ant-design/icons';
@@ -12,13 +12,12 @@ import PostModal from "../pages/showComments/PostModal";
 const {Text} = Typography;
 
 const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
-    const {likedposts, bookmarks, encodedEmail,usersApi} = useReduxHook();
+    const {likedposts, bookmarks, encodedEmail, usersApi} = useReduxHook();
     const {updateBookmarks, updateLikedPosts} = useAuth();
 
     const {date, name, description, likes, photo, post, comments, id} = user;
     const [liked, setLiked] = useState<boolean>(likedposts ? likedposts.includes(id) : false);
     const [bookmarked, setBookmarked] = useState<boolean>(bookmarks ? bookmarks.includes(id) : false);
-    const [loading, setLoading] = useState<boolean>(true);
     const [modalVisible, setModalVisible] = useState(false);
 
     const ViewModal = () => {
@@ -28,7 +27,7 @@ const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
         const isLiked = likedposts && likedposts.includes(id);
         const updatedLikedPosts = isLiked
             ? likedposts.filter((likedId: string) => likedId !== id)
-            : [...(likedposts || []), id];
+            : [...(likedposts || []), id] ;
         updateLikedPosts(updatedLikedPosts);
         await axios.put(`${usersApi}/${encodedEmail}/likedposts.json`, updatedLikedPosts);
         setLiked(!isLiked);
@@ -45,10 +44,6 @@ const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
         setBookmarked(!isBookmarked);
     };
 
-    useEffect(() => {
-        setLoading(false);
-    }, []);
-
     const commentCount = comments ? Object.keys(comments).length : 0;
 
     const commentButton = !comments ? (
@@ -63,7 +58,7 @@ const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
 
 
     return (
-        <Card hoverable className={styles.mainCard} loading={loading}>
+        <Card hoverable className={styles.mainCard}>
             <div style={{display: 'flex', alignItems: 'center', marginBottom: '12px'}}>
                 <Avatar src={photo}/>
                 <div style={{marginLeft: '12px'}}>

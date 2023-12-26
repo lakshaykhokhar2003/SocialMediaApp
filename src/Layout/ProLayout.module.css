@@ -1,6 +1,10 @@
+.topDiv {
+    display: flex;
+    flex-direction: row;
+}
+
 .sider {
     position: fixed;
-    top: 0;
     left: 0;
     height: 100vh;
     z-index: 100;
@@ -12,28 +16,37 @@
 
 }
 
-
-span {
-    list-style: none;
+.TopLayoutDiv {
+    margin-Left: 200px;
+    width: 100%;
+    margin-top: 20px;
 }
 
-
-a {
-    text-decoration: none;
-    /*color: #00081f;*/
+.Layout {
+    padding: 0 50px;
+    min-Height: 100vh;
 }
 
-.layout {
+.LayoutContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.footer {
+    text-align: center;
+    width: 100%;
     display: flex;
     flex-direction: row;
-    width: 100%;
-    background-color: red;
+    justify-content: center;
+    align-items: center;
+
 }
 
-.layouts {
-    max-width: 1000px;
-    margin-left: 200px;
-    margin-top: 50px;
+.footer a {
+    margin: 0 10px;
 }
 
 .newPost {
@@ -51,7 +64,5 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    /*border: 1px solid #00081f;*/
-    /*padding: 10px;*/
-    /*border-radius: 50%;*/
 }
+
