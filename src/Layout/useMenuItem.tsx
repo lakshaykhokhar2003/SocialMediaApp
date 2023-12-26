@@ -1,6 +1,6 @@
 import {HomeFilled, HeartFilled, BookFilled, SnippetsFilled, UserOutlined, LogoutOutlined} from '@ant-design/icons';
 import {Link} from 'react-router-dom';
-import authHook from "../../hooks/authHook";
+import authHook from "../hooks/authHook";
 import {Menu} from "antd";
 
 const useMenuItems = () => {
@@ -28,7 +28,7 @@ const useMenuItems = () => {
             key: '4',
             icon: <SnippetsFilled style={{color: '#fa8c16'}}/>,
             text: 'My Posts',
-            link: '/my-posts',
+            link: '/my-myposts',
         },
         {
             key: '5',

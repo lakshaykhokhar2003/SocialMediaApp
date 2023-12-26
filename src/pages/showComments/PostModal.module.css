@@ -30,6 +30,7 @@
     align-self: baseline;
     width: 100%;
     margin: auto auto 20px;
+    /*max-height: 300px;*/
 }
 
 .commentsContainer {
@@ -65,3 +66,18 @@
     /*margin-left: 10px;*/
     margin-top: 10px;
 }
+
+.icon {
+    padding: 5px 5px;
+}
+
+.spanEdit {
+    color: #0095f6;
+    cursor: pointer;
+}
+
+.spanDelete {
+    color: #ed4956;
+    cursor: pointer;
+}
+

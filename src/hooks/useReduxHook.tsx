@@ -11,7 +11,9 @@ const useReduxHook = () => {
     const encodedEmail = useSelector((state: { encodedEmail: string }) => state.encodedEmail)
     const myComments = useSelector((state: { myComments: string[] }) => state.myComments)
 
-    return {username, email, avatar, bookmarks, likedposts, myposts, isAuthenticated, encodedEmail, myComments}
+    const usersApi = process.env.REACT_APP_FETCH_USER_API
+    const postsApi = process.env.REACT_APP_FETCH_POSTS_API
+    return {username, email, avatar, bookmarks, likedposts, myposts, isAuthenticated, encodedEmail, myComments, usersApi, postsApi}
 
 }
 

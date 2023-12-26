@@ -5,10 +5,12 @@ import authHook from "../../hooks/authHook";
 import {Link} from "react-router-dom";
 import axios from "axios";
 import {Base64} from "js-base64";
+import useReduxHook from "../../hooks/useReduxHook";
 
 const Login: React.FC = () => {
-    const [form] = Form.useForm();
+    const {usersApi} = useReduxHook()
     const {loginHandler} = authHook()
+    const [form] = Form.useForm();
 
     const handleSubmit = async () => {
         try {
@@ -17,7 +19,7 @@ const Login: React.FC = () => {
             const encodedEmail = Base64.encode(email);
 
             try {
-                const res = await axios.get(`https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/user/-Nm7je81ns7AhjF2E0o3/${encodedEmail}.json`)
+                const res = await axios.get(`${usersApi}/${encodedEmail}.json`)
                 if (res.data.password !== password) {
                     return alert("wrong password");
                 }

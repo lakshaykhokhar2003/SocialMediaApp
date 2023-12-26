@@ -6,8 +6,9 @@ import {useNavigate} from "react-router-dom";
 import useReduxHook from "../../hooks/useReduxHook";
 import useAuth from "../../hooks/authHook";
 
+
 const CreatePostCard = () => {
-    const {username, avatar, encodedEmail, myposts} = useReduxHook()
+    const {username, avatar, encodedEmail, myposts, usersApi, postsApi} = useReduxHook()
     const {updateMyPosts} = useAuth()
 
     const [form] = Form.useForm();
@@ -25,14 +26,14 @@ const CreatePostCard = () => {
             photo: avatar,
         };
         const res: AxiosResponse<{ name: string }> = await axios.post(
-            'https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json', newPostData);
+            `${postsApi}.json`, newPostData);
 
         const id = res.data.name;
         const updatedPosts = [...(myposts || []), id];
         updateMyPosts(updatedPosts);
 
         await axios.patch(
-            `https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/user/-Nm7je81ns7AhjF2E0o3/${encodedEmail}.json`,
+            `${usersApi}/${encodedEmail}.json`,
             {myposts: updatedPosts}
         );
 

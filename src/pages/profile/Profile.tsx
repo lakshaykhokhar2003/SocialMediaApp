@@ -1,13 +1,16 @@
 import {useState} from 'react';
-import {Form, Input, Button, Avatar} from 'antd';
+import {Form, Input, Button, Avatar, Typography} from 'antd';
 import {UserOutlined, EditTwoTone} from '@ant-design/icons';
 import useReduxHook from "../../hooks/useReduxHook";
 import axios from "axios";
 import useAuth from "../../hooks/authHook";
 import {ValidateErrorEntity} from 'rc-field-form/es/interface';
+import styles from "./Profile.module.css";
+
+const {Title} = Typography;
 
 const Profile: React.FC = () => {
-    const {avatar, username, email, encodedEmail, myposts, myComments} = useReduxHook();
+    const {avatar, username, email, encodedEmail, myposts, myComments,usersApi,postsApi} = useReduxHook();
     const {updateProfile} = useAuth()
 
     const [form] = Form.useForm();
@@ -17,12 +20,12 @@ const Profile: React.FC = () => {
         await form.validateFields();
         const values = form.getFieldsValue();
         const data = {name: values.name, avatar: values.photoUrl}
-        await axios.patch(`https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/user/-Nm7je81ns7AhjF2E0o3/${encodedEmail}.json`, data);
+        await axios.patch(`${usersApi}/${encodedEmail}.json`, data);
 
-        await Promise.all(  // Update all your posts with new name
+        await Promise.all(  // Update all your myPosts with new name
             myposts.map(async (postId: string) => {
                 return await axios.patch(
-                    `https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/posts/${postId}.json`,
+                    `${postsApi}/${postId}.json`,
                     data
                 );
             })
@@ -47,12 +50,6 @@ const Profile: React.FC = () => {
         console.log('Failed:', errorInfo);
     };
 
-    const handleEditClick = () => {
-        setEditMode(!editMode);
-    };
-    const handleSaveChanges = () => {
-        form.submit();
-    };
 
     const renderInput = (fieldName: string, rules?: object[]) => {
         const disabled = fieldName === 'email';
@@ -66,14 +63,15 @@ const Profile: React.FC = () => {
                     prefix={<UserOutlined/>}
                     disabled={disabled || (!editMode && fieldName === 'name')}
                     placeholder={fieldName === 'name' ? 'Enter Name' : 'Enter Image URL'}
+
                 />
             </Form.Item>
         );
     };
 
     return (
-        <div className="p-5">
-            <h1 className="text-center mb-5">My Profile</h1>
+        <div className={styles.topDiv}>
+            <Title level={2}>My Profile</Title>
             <Form
                 form={form}
                 initialValues={{
@@ -95,11 +93,11 @@ const Profile: React.FC = () => {
                 <Form.Item>
                     {editMode ? (
                         <>
-                            <Button type="primary" onClick={handleSaveChanges}>Save Changes</Button>
+                            <Button type="primary" onClick={() => form.submit()}>Save Changes</Button>
                             <Button onClick={() => setEditMode(!editMode)}>Cancel</Button>
                         </>
                     ) : (
-                        <Button icon={<EditTwoTone/>} onClick={handleEditClick}>Edit</Button>
+                        <Button icon={<EditTwoTone/>} onClick={() => setEditMode(!editMode)}>Edit</Button>
                     )}
                 </Form.Item>
             </Form>

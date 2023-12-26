@@ -1,21 +1,14 @@
 import React, {useState, useEffect} from 'react';
-import {PostData} from './PostData';
-import PostsCard from '../utils/Card/Card';
+import {PostData} from '../utils/PostData';
+import PostsCard from '../Card/PostsCard';
 import axios, {AxiosResponse} from 'axios';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import useReduxHook from "../hooks/useReduxHook";
 
+const postsApi = process.env.REACT_APP_FETCH_POSTS_API
 const Home: React.FC = () => {
     const {
-        username,
-        email,
-        avatar,
-        bookmarks,
-        likedposts,
-        myposts,
-        isAuthenticated,
-        encodedEmail,
-        myComments
+        username, email, avatar, bookmarks, likedposts, myposts, isAuthenticated, encodedEmail, myComments
     } = useReduxHook()
 
     const [userData, setUserData] = useState<PostData[]>([]);
@@ -27,9 +20,7 @@ const Home: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res: AxiosResponse<Record<string, PostData>> = await axios.get(
-                    'https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/posts.json'
-                );
+                const res: AxiosResponse<Record<string, PostData>> = await axios.get(`${postsApi}.json`);
                 const data = Object.entries(res.data).map(([userId, userData]) => ({
                     ...userData,
                     id: userId,
@@ -47,7 +38,7 @@ const Home: React.FC = () => {
     const fetchMoreData = () => {
         if (userData.length >= dataLength) {
             setHasMore(false);
-           
+
         } else {
             setLoadedItems(loadedItems + 10);
         }

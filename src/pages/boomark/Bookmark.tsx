@@ -1,11 +1,14 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import axios, {AxiosResponse} from "axios";
-import {PostData} from "../PostData";
-import PostsCard from "../../utils/Card/Card";
+import {PostData} from "../../utils/PostData";
+import {Typography} from "antd";
+import PostsCard from "../../Card/PostsCard";
 import useReduxHook from "../../hooks/useReduxHook";
+import styles from "../emptydata.module.css";
 
+const {Title} = Typography;
 const Bookmark: React.FC = () => {
-    const {bookmarks} = useReduxHook();
+    const {bookmarks, postsApi} = useReduxHook();
 
     const [bookmarksData, setBookmarksData] = useState<PostData[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -13,7 +16,7 @@ const Bookmark: React.FC = () => {
     const fetchBookmarkPost = async (bookmarks: string[]): Promise<PostData[]> => {
         const requests = bookmarks.map(async (postId) => {
             const bookmark: AxiosResponse<PostData> = await axios.get(
-                `https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/posts/${postId}.json`
+                `${postsApi}/${postId}.json`
             );
             return {
                 ...bookmark.data,
@@ -54,7 +57,10 @@ const Bookmark: React.FC = () => {
                     <PostsCard key={user.id} user={user}/>
                 ))
             ) : (
-                <div>No Bookmarks</div>
+                <div className={styles.topDiv}>
+                    <div className={styles.img}></div>
+                    <Title level={2}>No Bookmarks</Title>
+                </div>
             )}
         </>
     );

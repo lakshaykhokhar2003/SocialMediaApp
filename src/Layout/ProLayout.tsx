@@ -2,18 +2,18 @@ import React from 'react';
 import styles from './ProLayout.module.css';
 import {Outlet, useNavigate} from 'react-router-dom';
 import {GithubOutlined, PlusOutlined} from '@ant-design/icons';
-import authHook from "../../hooks/authHook";
+import authHook from "../hooks/authHook";
 import useMenuItems from "./useMenuItem";
 import {Link} from 'react-router-dom';
 import {Layout, Menu} from "antd";
-import useReduxHook from "../../hooks/useReduxHook";
+import useReduxHook from "../hooks/useReduxHook";
 
 const {Sider, Content, Footer} = Layout;
 
 const MyLayout: React.FC = () => {
-    const navigate = useNavigate()
     const {useAuthEffect} = authHook()
     const {isAuthenticated} = useReduxHook()
+    const navigate = useNavigate()
     const {renderMenuItems} = useMenuItems();
     useAuthEffect()
 

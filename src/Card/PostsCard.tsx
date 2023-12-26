@@ -1,18 +1,18 @@
 import React, {useState, useEffect} from 'react';
-import {PostData} from '../../pages/PostData'
+import {PostData} from '../utils/PostData'
 import {Card, Button, Avatar, Typography} from 'antd';
 import {HeartOutlined, HeartFilled, CommentOutlined, BookTwoTone, BookOutlined} from '@ant-design/icons';
-import {giveDate} from './giveDate';
-import useReduxHook from '../../hooks/useReduxHook';
+import {capitalizeFirstLetter, giveDate} from '../utils/functions';
+import useReduxHook from '../hooks/useReduxHook';
 import axios from 'axios';
 import styles from './Card.module.css';
-import useAuth from "../../hooks/authHook";
-import PostModal from "./PostModal";
+import useAuth from "../hooks/authHook";
+import PostModal from "../pages/showComments/PostModal";
 
 const {Text} = Typography;
 
 const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
-    const {likedposts, bookmarks, encodedEmail} = useReduxHook();
+    const {likedposts, bookmarks, encodedEmail,usersApi} = useReduxHook();
     const {updateBookmarks, updateLikedPosts} = useAuth();
 
     const {date, name, description, likes, photo, post, comments, id} = user;
@@ -30,7 +30,7 @@ const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
             ? likedposts.filter((likedId: string) => likedId !== id)
             : [...(likedposts || []), id];
         updateLikedPosts(updatedLikedPosts);
-        await axios.put(`https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/user/-Nm7je81ns7AhjF2E0o3/${encodedEmail}/likedposts.json`, updatedLikedPosts);
+        await axios.put(`${usersApi}/${encodedEmail}/likedposts.json`, updatedLikedPosts);
         setLiked(!isLiked);
     };
 
@@ -41,7 +41,7 @@ const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
             : [...(bookmarks || []), id];
 
         updateBookmarks(updatedBookmarks);
-        await axios.put(`https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/user/-Nm7je81ns7AhjF2E0o3/${encodedEmail}/bookmarks.json`, updatedBookmarks);
+        await axios.put(`${usersApi}/${encodedEmail}/bookmarks.json`, updatedBookmarks);
         setBookmarked(!isBookmarked);
     };
 
@@ -67,7 +67,7 @@ const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
             <div style={{display: 'flex', alignItems: 'center', marginBottom: '12px'}}>
                 <Avatar src={photo}/>
                 <div style={{marginLeft: '12px'}}>
-                    <h3>{name.charAt(0).toUpperCase() + name.slice(1)}</h3>
+                    <h3>{capitalizeFirstLetter(name)}</h3>
                     <Text type="secondary">{giveDate(date)}</Text>
                 </div>
             </div>

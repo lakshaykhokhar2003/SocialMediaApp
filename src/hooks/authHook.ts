@@ -7,13 +7,13 @@ import useReduxHook from "./useReduxHook";
 
 
 const useAuth = () => {
-    const {isAuthenticated} = useReduxHook()
+    const {isAuthenticated, usersApi} = useReduxHook()
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const loginHandler = async (email: string) => {
         try {
-            const res = await axios.get(`https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/user/-Nm7je81ns7AhjF2E0o3/${email}.json`)
+            const res = await axios.get(`${usersApi}/${email}.json`)
             dispatch(authActions.login(res.data))
             navigate('/')
         } catch (e) {
@@ -24,7 +24,7 @@ const useAuth = () => {
 
     const registerHandler = async (email: string, data: object) => {
         try {
-            const res = await axios.put(`https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/user/-Nm7je81ns7AhjF2E0o3/${email}.json`, data)
+            const res = await axios.put(`${usersApi}/${email}.json`, data)
             dispatch(authActions.login(res.data))
             navigate('/')
 

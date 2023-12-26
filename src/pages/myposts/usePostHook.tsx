@@ -1,44 +1,31 @@
 import React, {useEffect, useState} from "react";
-import {PostData} from "../PostData";
+import {CommentData, PostData} from "../../utils/PostData";
 import axios, {AxiosResponse} from "axios";
 import {Button, Input, Space, Typography} from "antd";
 import useReduxHook from "../../hooks/useReduxHook";
 import useAuth from "../../hooks/authHook";
 import ReusableModal from "./ReusableModal";
-import styles from "../../utils/Card/PostModal.module.css";
-import {giveDate} from "../../utils/Card/giveDate";
+import styles from "../showComments/PostModal.module.css";
+import {capitalizeFirstLetter, giveDate} from "../../utils/functions";
 
 const {Text} = Typography;
 
 const usePostHook = () => {
-    const {myposts, encodedEmail} = useReduxHook()
+    const {myposts, encodedEmail, usersApi, postsApi} = useReduxHook()
     const {updateMyPosts} = useAuth()
 
     const [userPosts, setUserPosts] = useState<PostData[]>([]);
     const [editId, setEditId] = useState<string | null>(null);
-    const [editedField, setEditedField] = useState<keyof PostData | null>(null);
     const [expandedRowKeys, setExpandedRowKeys] = useState<string[]>([]);
     const [deletePostModalVisible, setDeletePostModalVisible] = useState<boolean>(false);
     const [deleteCommentModalVisible, setDeleteCommentModalVisible] = useState<boolean>(false);
 
-    const handleDeletePostModalCancel = () => {
-        setDeletePostModalVisible(false);
-    };
-
-    const handleDeleteCommentModalCancel = () => {
-        setDeleteCommentModalVisible(false);
-    };
 
     const handleExpand = (expanded: boolean, record: PostData) => {
         const keys = expanded
             ? [...expandedRowKeys, record.id || '']
             : expandedRowKeys.filter((key) => key !== record.id);
         setExpandedRowKeys(keys);
-    };
-
-    const handleCancelEdit = () => {
-        setEditId(null);
-        setEditedField(null);
     };
 
     const expandedRowKeysConfig = {
@@ -52,7 +39,7 @@ const usePostHook = () => {
 
                 try {
                     await axios.put(
-                        `https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/posts/${record.id}.json`,
+                        `${postsApi}/${record.id}.json`,
                         updatedRecord
                     );
                     console.log(`Comment deleted for ID: ${record.id}`);
@@ -75,28 +62,29 @@ const usePostHook = () => {
                         <li key={index}>
                             <div>
                                 <p className={styles.comment}>{comment.comment}</p> ~
-                                <Text className={styles.commentName} strong>{comment.name}</Text>
+                                <Text className={styles.commentName} strong>{capitalizeFirstLetter(comment.name)}</Text>
                                 <Text type="secondary" className="m-lg-2">{giveDate(comment.date)}</Text>
 
+
+                                {editId === record.id && (
+                                    <>
+                                        <Button danger onClick={() => setDeleteCommentModalVisible(true)}>
+                                            Delete
+                                        </Button>
+                                        <ReusableModal
+                                            title="Delete Comment"
+                                            visible={deleteCommentModalVisible}
+                                            onOk={() => {
+                                                handleCommentDelete(comment.id);
+                                                setDeletePostModalVisible(false);
+                                            }}
+                                            onCancel={() => setDeleteCommentModalVisible(false)}
+                                        >
+                                            <p>Are you sure you want to delete this comment?</p>
+                                        </ReusableModal>
+                                    </>
+                                )}
                             </div>
-                            {editId === record.id && (
-                                <>
-                                    <Button danger onClick={() => setDeleteCommentModalVisible(true)}>
-                                        Delete
-                                    </Button>
-                                    <ReusableModal
-                                        title="Delete Comment"
-                                        visible={deleteCommentModalVisible}
-                                        onOk={() => {
-                                            handleCommentDelete(comment.id);
-                                            setDeletePostModalVisible(false);
-                                        }}
-                                        onCancel={handleDeleteCommentModalCancel}
-                                    >
-                                        <p>Are you sure you want to delete this comment?</p>
-                                    </ReusableModal>
-                                </>
-                            )}
                         </li>
                     ))}
                 </ul>
@@ -104,13 +92,12 @@ const usePostHook = () => {
         },
     };
 
-
     const handleDeletePosts = async (id: string) => {
         try {
-            await axios.delete(`https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/posts/${id}.json`);
+            await axios.delete(`${postsApi}/${id}.json`);
             const filteredData = myposts.filter((postId: string) => postId !== id);
             updateMyPosts(filteredData);
-            myposts && myposts.includes(id) && await axios.patch(`https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/user/-Nm7je81ns7AhjF2E0o3/${encodedEmail}.json`, {myposts: filteredData});
+            myposts && myposts.includes(id) && await axios.patch(`${usersApi}/${encodedEmail}.json`, {myposts: filteredData});
             console.log(`Post with ID ${id} deleted`);
         } catch (error) {
             console.error(`Error deleting post with ID ${id}:`, error);
@@ -119,14 +106,12 @@ const usePostHook = () => {
 
 
     const handleInputChange = (value: string, field: keyof PostData, id: string) => {
-
         setUserPosts((prevState) =>
             prevState.map((item) =>
                 item.id === id ? {...item, [field]: value} : item
             )
         );
 
-        setEditedField(field);
     };
 
     const handleEditPosts = async (id: string) => {
@@ -136,7 +121,7 @@ const usePostHook = () => {
         try {
             const currentDate = new Date().toISOString();
             await axios.put(
-                `https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/posts/${id}.json`,
+                `${postsApi}/${id}.json`,
                 {
                     ...currentItem,
                     date: currentDate,
@@ -157,15 +142,15 @@ const usePostHook = () => {
                 const postsData: PostData[] = await Promise.all(
                     myposts.map(async (postId: string) => {
                         const res: AxiosResponse<PostData> = await axios.get(
-                            `https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/posts/${postId}.json`
+                            `${postsApi}/${postId}.json`
                         );
-                        const commentsResponse: AxiosResponse<any> = await axios.get(
-                            `https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/posts/${postId}/comments.json`
+                        const commentsResponse: AxiosResponse<Record<string, CommentData>> = await axios.get(
+                            `${postsApi}/${postId}/comments.json`
                         );
                         const postWithComments: PostData = {
                             ...res.data,
                             id: postId,
-                            comments: commentsResponse.data || {}
+                            comments: commentsResponse.data || {},
                         };
                         return postWithComments;
 
@@ -221,7 +206,7 @@ const usePostHook = () => {
                 title: 'Comments',
                 dataIndex: 'comments',
                 key: 'comments',
-                render: (_: any, record: PostData) => (
+                render: (record: PostData) => (
                     <Button onClick={() => handleExpand(!expandedRowKeys.includes(record.id || ''), record)}>
                         {expandedRowKeys.includes(record.id || '') ? 'Hide Comments' : 'Show Comments'}
                     </Button>
@@ -238,14 +223,14 @@ const usePostHook = () => {
             {
                 title: "Actions",
                 key: "action",
-                render: (text: any, record: PostData) => (
+                render: (record: PostData) => (
                     <Space size="middle">
                         {editId === record.id ? (
                             <>
                                 <Button onClick={() => handleEditPosts(record.id || "")}>
                                     Save
                                 </Button>
-                                <Button onClick={handleCancelEdit}>Cancel</Button>
+                                <Button onClick={() => setEditId(null)}>Cancel</Button>
                             </>
                         ) : (
                             <Button onClick={() => setEditId(record.id || "")}>Edit</Button>
@@ -258,7 +243,7 @@ const usePostHook = () => {
                                 handleDeletePosts(record.id || "");
                                 setDeletePostModalVisible(false);
                             }}
-                            onCancel={handleDeletePostModalCancel}
+                            onCancel={() => setDeletePostModalVisible(false)}
                         >
                             <p>Are you sure you want to delete this post?</p>
                         </ReusableModal>

@@ -1,18 +1,23 @@
-import PostsCard from '../../utils/Card/Card';
+import PostsCard from '../../Card/PostsCard';
 import {useEffect, useState} from "react";
 import axios, {AxiosResponse} from "axios";
-import {PostData} from "../PostData";
+import {PostData} from "../../utils/PostData";
 import useReduxHook from "../../hooks/useReduxHook";
+import styles from "../emptydata.module.css";
+import {Typography} from "antd";
+
+const {Title} = Typography;
 
 const Likes: React.FC = () => {
-    const {likedposts} = useReduxHook()
+    const {likedposts,postsApi} = useReduxHook()
+
     const [likedData, setLikedData] = useState<PostData[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     const fetchLikedPosts = async (likedposts: string[]): Promise<PostData[]> => {
         const requests = likedposts.map(async (postId) => {
             const likedpost: AxiosResponse<PostData> = await axios.get(
-                `https://algo-bullls-default-rtdb.asia-southeast1.firebasedatabase.app/posts/${postId}.json`
+                `${postsApi}/${postId}.json`
             );
             return {
                 ...likedpost.data,
@@ -51,7 +56,10 @@ const Likes: React.FC = () => {
                     <PostsCard key={user.id} user={user}/>
                 ))
             ) : (
-                <div>No Likes</div>
+                <div className={styles.topDiv}>
+                    <div className={styles.img}></div>
+                    <Title level={2}>No Liked Posts</Title>
+                </div>
             )}
         </>
     )

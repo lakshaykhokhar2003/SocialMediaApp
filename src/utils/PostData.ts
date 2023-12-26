@@ -1,8 +1,9 @@
-interface CommentData {
+export interface CommentData {
     date: string;
     name: string;
     comment: string;
     avatar: string;
+    email: string;
 
 }
 
