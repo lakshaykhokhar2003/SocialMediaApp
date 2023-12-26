@@ -1,5 +1,5 @@
 import React from 'react';
-import {createBrowserRouter, RouterProvider} from 'react-router-dom';
+import {createBrowserRouter, RouterProvider, useNavigate} from 'react-router-dom';
 import SignUp from './pages/signup/SignUp';
 import Login from './pages/signup/Login';
 import MyLayout from './Layout/ProLayout';
@@ -60,8 +60,26 @@ const routes = [
                 element: <SignUp/>
             },
         ]
-    }
+    }, {
+        path: '*',
+        element: <NotFound/>,
+    },
+
 ];
+
+
+function NotFound() {
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+        navigate('/');
+    }, [navigate]);
+    return (
+        <div>
+            <p>Page Not Found. Redirecting...</p>
+        </div>
+    );
+}
 
 const router = createBrowserRouter(routes);
 
