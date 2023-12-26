@@ -5,7 +5,6 @@ import authHook from '../hooks/authHook';
 import useMenuItems from './useMenuItem';
 import {Link} from 'react-router-dom';
 import {Layout, Menu} from 'antd';
-import 'react-toastify/dist/ReactToastify.css';
 import useReduxHook from "../hooks/useReduxHook";
 import styles from './ProLayout.module.css';
 
