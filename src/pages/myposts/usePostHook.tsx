@@ -197,7 +197,7 @@ const usePostHook = () => {
                         <Input.TextArea
                             value={text}
                             onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => handleInputChange(e.target.value, "post", record.id || "")}
-                            style={{width: 200}}
+                            style={{width: "500px", minHeight: "100px", maxHeight: "300px"}}
                         />
                     ) : (
                         text

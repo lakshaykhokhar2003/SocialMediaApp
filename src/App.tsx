@@ -1,12 +1,12 @@
 import React from 'react';
 import {createBrowserRouter, RouterProvider, useNavigate} from 'react-router-dom';
-import SignUp from './pages/signup/SignUp';
-import Login from './pages/signup/Login';
 import MyLayout from './Layout/ProLayout';
-import Home from './pages/Home';
 import {Provider} from 'react-redux';
 import store from './store';
 import RootDiv from "./utils/RootDiv/RootDiv";
+import SignUp from './pages/signup/SignUp';
+import Login from './pages/signup/Login';
+import Home from './pages/Home';
 import Bookmark from "./pages/boomark/Bookmark";
 import Posts from "./pages/myposts/Posts";
 import Profile from "./pages/profile/Profile";

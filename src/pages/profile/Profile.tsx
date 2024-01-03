@@ -10,7 +10,7 @@ import styles from "./Profile.module.css";
 const {Title} = Typography;
 
 const Profile: React.FC = () => {
-    const {avatar, username, email, encodedEmail, myposts, myComments,usersApi,postsApi} = useReduxHook();
+    const {avatar, username, email, encodedEmail, myposts, myComments, usersApi, postsApi} = useReduxHook();
     const {updateProfile} = useAuth()
 
     const [form] = Form.useForm();
@@ -55,7 +55,7 @@ const Profile: React.FC = () => {
         const disabled = fieldName === 'email';
         return (
             <Form.Item
-                label={fieldName === 'name' ? 'Name' : 'Profile Photo (Image URL)'}
+                label={fieldName === 'name' ? 'Name' : (fieldName === 'email' ? 'Email' : 'Profile Photo (Image URL)')}
                 name={fieldName}
                 rules={rules}
             >
