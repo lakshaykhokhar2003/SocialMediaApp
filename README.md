@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# Getting Started
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app):\
+## Installation
 
-### REST API for the project
+```bash
+npm install
+```
 
-Created a dummy user for the project with the following credentials:
+## Running the app
 
-Email: "lakshaykhokhar2003@gmail.com" password: "123456", however you can create your own user by signing up, just be
-sure to remember your email and password because It will be required during login.
+```bash
+npm start
+```
 
-Created a REST API for the project using the following endpoints:
+open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Get Post Put Patch Delete /api/posts: This endpoint should return all the posts in the database
+## Credentials
 
-Get Post Put Patch Delete /api/user/: This endpoint contains the signup and login details of the users.
+I created a dummy user for the project with the following information: email: "lakshaykhokhar2003@gmail.com" and
+password: "123456".
+
+You can also create your own user by registering, but note that your email address and
+password are needed to log in.
+
+## API Endpoints
+
+### GET POST PUT PATCH DELETE /api/posts
+
+This endpoint should return all the posts in the database
+
+### GET POST PUT PATCH DELETE /api/user/
+
+This endpoint contains the signup and login details of the users.
 
 The Apis are mentioned in the .env file for the project.
 
+## Screenshots
 
+### Login Page
+![Login Page](https://lh3.googleusercontent.com/drive-viewer/AEYmBYQnYRQfpMCnDMNtywGVVV2Lv660uzuZL8BH-oeZxukZsG-nOkZbx7dn_e85Nlepw5BvTJXojcRvUcxML6eSOiO2fgUq-w=w2552-h1364)
 
-## Available Scripts
+### Home Page
+![Home Page](https://lh3.googleusercontent.com/drive-viewer/AEYmBYTUkBoel7WTr1R3iVMibCRMaH2-h1M-ldH7juWGrTgE3KTpJyxMM2pC_ltFHnmwSel7tLxwZOJGPtvV8rxX0eNEzmnV=w2552-h1364)
 
-In the project directory, you can run:
+### Posts
+![Posts](https://lh3.googleusercontent.com/drive-viewer/AEYmBYTZIizbnKKmQk9KXpWWQztjhd9dtk7BD-2WLAbw2d8-_Js20wCrb7EbOWigXjCdwNWVMF-OznGhAv4XQlZAMHrcoDey=w2552-h1364)
 
-### `npm start`
+### Liked Posts
+![Liked Posts](https://lh3.googleusercontent.com/drive-viewer/AEYmBYTougnpebnnO8ISWsDuAAlorSB8tgL45SU_dVZoda2ZSJV-yIdAcu2fp2kglmtRF0SD5jTz5O72TTGb-UTCp35iwUU4=w2552-h1364)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### My Posts
+![My Posts](https://lh3.googleusercontent.com/drive-viewer/AEYmBYTSoTFs5x-g_TsfixhzJpk6HlmdSM_KE6rDJTPx65Rmqt97RRDrPVD4y3NkCI7Jxm3BgI4-LxL3th1vgoV8h8oN0jzM=w2552-h1364)
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Edit My Post
+![Edit My Post](https://lh3.googleusercontent.com/drive-viewer/AEYmBYSAuoF6T1-jVy6so3aigjU_mgD5QHiBGwBd6ALYb8kuY7s2v7swniqAaPZQ2jzy5V5HjqKlOpLdO9SxvMEFRsUPk_lb=w2552-h1364)
 
-### `npm test`
+### My Profile
+![My Profile](https://lh3.googleusercontent.com/drive-viewer/AEYmBYQIaZgDURtDr-AE90b1yvgvMTXImFIN5ztlXrYWFm-FGpOPhvOtFL3rXixzAWIv_YyyElBrq5qiG-nrgYMAoWlqPCOH=w2552-h1364)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more
-information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will
-remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right
-into your project so you have full control over them. All of the commands except `eject` will still work, but they will
-point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you
-shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t
-customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in
-the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Create Post
+![Create Post](https://lh3.googleusercontent.com/drive-viewer/AEYmBYQ6afNNy-6f_ZjgNmHcDXwe6Bz99onKpe9Aa4s7R14nFj3ZU_wY1HS2qUbClOnrtiU6w34yfHLyerJpX0uomCjmxTnPFQ=w2552-h1364)
