@@ -6,6 +6,7 @@ import axios from "axios";
 import useAuth from "../../hooks/authHook";
 import {ValidateErrorEntity} from 'rc-field-form/es/interface';
 import styles from "./Profile.module.css";
+import AvatarPhoto from "../../utils/avatar.jpg"
 
 const {Title} = Typography;
 
@@ -84,7 +85,7 @@ const Profile: React.FC = () => {
                 className="d-flex flex-column align-items-center"
             >
                 <Form.Item>
-                    <Avatar size={100} src={profilePhoto}/>
+                    <Avatar size={100} src={AvatarPhoto || profilePhoto}/>
                 </Form.Item>
                 {renderInput('email', [{required: true, message: 'Please input your email!'}])}
                 {renderInput('name', [{required: true, message: 'Please input your name!'}])}
