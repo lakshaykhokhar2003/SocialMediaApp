@@ -7,6 +7,9 @@ import {CommentData, PostData} from '../../utils/PostData';
 import axios from 'axios';
 import useReduxHook from '../../hooks/useReduxHook';
 import useAuth from '../../hooks/authHook';
+import CommentsAvatar from '../../utils/comments.jpg'
+import AvatarPhoto from "../../utils/avatar.jpg"
+import PostPhoto from "../../utils/post.jpg";
 
 const {Text} = Typography;
 
@@ -15,7 +18,7 @@ const PostModal: React.FC<{
         visible: boolean;
         onClose: () => void;
     }> = ({user, visible, onClose}) => {
-        const {username, avatar, email, encodedEmail, myComments,usersApi,postsApi} = useReduxHook();
+        const {username, avatar, email, encodedEmail, myComments, usersApi, postsApi} = useReduxHook();
         const {updateMyComments} = useAuth();
 
         const {date, name, description, photo, post} = user;
@@ -132,11 +135,13 @@ const PostModal: React.FC<{
             >
                 <div className={styles.overlay}>
                     <div className={styles.img}>
-                        <img alt="user-post" src={post}/>
+                        <img alt="user-post" src={post} onError={(e) => {
+                            (e.target as HTMLImageElement).src = PostPhoto;
+                        }}/>
                     </div>
                     <div className={styles.detailsContainer}>
                         <div className={styles.author}>
-                            <Avatar src={photo}/>
+                            <Avatar src={AvatarPhoto || photo}/>
                             <div style={{marginLeft: '12px'}}>
                                 <h3>{capitalizeFirstLetter(name)}</h3>
                                 <Text type="secondary">{giveDate(date)}</Text>
@@ -152,7 +157,7 @@ const PostModal: React.FC<{
                                             <div className={styles.commentDetails}>
                                                 <div>
                                                     <>
-                                                        <Avatar src={comment.avatar}/>
+                                                        <Avatar src={CommentsAvatar || comment.avatar}/>
                                                         <Text className={styles.commentName} strong>
                                                             {comment.name}
                                                         </Text>

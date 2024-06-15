@@ -8,6 +8,8 @@ import axios from 'axios';
 import styles from './Card.module.css';
 import useAuth from "../hooks/authHook";
 import PostModal from "../pages/showComments/PostModal";
+import AvatarPhoto from "../utils/avatar.jpg"
+import PostPhoto from "../utils/post.jpg"
 
 const {Text} = Typography;
 
@@ -28,7 +30,7 @@ const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
         const isLiked = likedposts && likedposts.includes(id);
         const updatedLikedPosts = isLiked
             ? likedposts.filter((likedId: string) => likedId !== id)
-            : [...(likedposts || []), id] ;
+            : [...(likedposts || []), id];
         updateLikedPosts(updatedLikedPosts);
         await axios.put(`${usersApi}/${encodedEmail}/likedposts.json`, updatedLikedPosts);
         setLiked(!isLiked);
@@ -61,7 +63,10 @@ const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
     return (
         <Card hoverable className={styles.mainCard}>
             <div style={{display: 'flex', alignItems: 'center', marginBottom: '12px'}}>
-                <Avatar src={photo}/>
+                <Avatar
+                    src={AvatarPhoto || photo}
+                    alt={`${name}'s avatar`}
+                />
                 <div style={{marginLeft: '12px'}}>
                     <h3>{capitalizeFirstLetter(name)}</h3>
                     <Text type="secondary">{giveDate(date)}</Text>
@@ -69,10 +74,13 @@ const PostsCard: React.FC<{ user: PostData }> = ({user}) => {
             </div>
             <div>
                 <img
-                    alt="user-post"
+                    alt="Post image"
                     src={post}
                     className={styles.postImg}
                     onClick={ViewModal}
+                    onError={(e) => {
+                        (e.target as HTMLImageElement).src = PostPhoto;
+                    }}
                 />
                 <Button
                     icon={bookmarked ? <BookTwoTone twoToneColor="pink"/> : <BookOutlined/>}

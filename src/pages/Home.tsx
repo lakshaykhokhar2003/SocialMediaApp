@@ -44,6 +44,7 @@ const Home: React.FC = () => {
         }
     };
 
+    console.log(userData)
     return (
         <InfiniteScroll
             dataLength={userData.length}
