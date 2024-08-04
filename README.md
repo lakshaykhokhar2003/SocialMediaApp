@@ -37,25 +37,25 @@ The Apis are mentioned in the .env file for the project.
 ## Screenshots
 
 ### Login Page
-![Login Page](https://lh3.googleusercontent.com/drive-viewer/AEYmBYQnYRQfpMCnDMNtywGVVV2Lv660uzuZL8BH-oeZxukZsG-nOkZbx7dn_e85Nlepw5BvTJXojcRvUcxML6eSOiO2fgUq-w=w2552-h1364)
+![Login Page](public/screenshots/LoginPage.png)
 
 ### Home Page
-![Home Page](https://lh3.googleusercontent.com/drive-viewer/AEYmBYTUkBoel7WTr1R3iVMibCRMaH2-h1M-ldH7juWGrTgE3KTpJyxMM2pC_ltFHnmwSel7tLxwZOJGPtvV8rxX0eNEzmnV=w2552-h1364)
+![Home Page](public/screenshots/HomePage.png)
 
 ### Posts
-![Posts](https://lh3.googleusercontent.com/drive-viewer/AEYmBYTZIizbnKKmQk9KXpWWQztjhd9dtk7BD-2WLAbw2d8-_Js20wCrb7EbOWigXjCdwNWVMF-OznGhAv4XQlZAMHrcoDey=w2552-h1364)
+![Posts](public/screenshots/PostModal.png)
 
 ### Liked Posts
-![Liked Posts](https://lh3.googleusercontent.com/drive-viewer/AEYmBYTougnpebnnO8ISWsDuAAlorSB8tgL45SU_dVZoda2ZSJV-yIdAcu2fp2kglmtRF0SD5jTz5O72TTGb-UTCp35iwUU4=w2552-h1364)
+![Liked Posts](public/screenshots/LikedPosts.png)
 
 ### My Posts
-![My Posts](https://lh3.googleusercontent.com/drive-viewer/AEYmBYTSoTFs5x-g_TsfixhzJpk6HlmdSM_KE6rDJTPx65Rmqt97RRDrPVD4y3NkCI7Jxm3BgI4-LxL3th1vgoV8h8oN0jzM=w2552-h1364)
+![My Posts](public/screenshots/MyPosts.png)
 
 ### Edit My Post
-![Edit My Post](https://lh3.googleusercontent.com/drive-viewer/AEYmBYSAuoF6T1-jVy6so3aigjU_mgD5QHiBGwBd6ALYb8kuY7s2v7swniqAaPZQ2jzy5V5HjqKlOpLdO9SxvMEFRsUPk_lb=w2552-h1364)
+![Edit My Post](public/screenshots/EditMyPost.png)
 
 ### My Profile
-![My Profile](https://lh3.googleusercontent.com/drive-viewer/AEYmBYQIaZgDURtDr-AE90b1yvgvMTXImFIN5ztlXrYWFm-FGpOPhvOtFL3rXixzAWIv_YyyElBrq5qiG-nrgYMAoWlqPCOH=w2552-h1364)
+![My Profile](public/screenshots/MyProfile.png)
 
 ### Create Post
-![Create Post](https://lh3.googleusercontent.com/drive-viewer/AEYmBYQ6afNNy-6f_ZjgNmHcDXwe6Bz99onKpe9Aa4s7R14nFj3ZU_wY1HS2qUbClOnrtiU6w34yfHLyerJpX0uomCjmxTnPFQ=w2552-h1364)
+![Create Post](public/screenshots/CreatePosts.png)
